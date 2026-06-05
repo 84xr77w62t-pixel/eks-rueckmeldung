@@ -1777,14 +1777,14 @@
             <h2 id="login-title" style="margin-bottom: 10px; color: #102a43;">EKS Rückmeldungen</h2>
 
             <div id="auth-step-1">
-                <p style="font-size: 14px; color: #627d98; margin-bottom: 25px;">Bitte gib das Schul-Passwort ein:</p>
-                <input type="password" id="login-input" class="password-input" placeholder="Passwort..." autofocus>
-                <p id="login-error-1"
-                    style="color: #d32f2f; font-size: 13px; font-weight: bold; margin-bottom: 15px; display: none;">
-                    Falsches Passwort!</p>
-                <button type="button" class="app-btn primary-btn" id="login-submit-master"
-                    style="width: 100%; font-size: 16px; padding: 10px;">Entsperren</button>
-            </div>
+    <p style="font-size: 14px; color: #627d98; margin-bottom: 25px;">Bitte gib das Schul-Passwort ein:</p>
+    <input type="text" id="login-input" class="password-input" placeholder="Passwort..." style="-webkit-text-security: disc;" autofocus>
+    <p id="login-error-1"
+        style="color: #d32f2f; font-size: 13px; font-weight: bold; margin-bottom: 15px; display: none;">
+        Falsches Passwort!</p>
+    <button type="button" class="app-btn primary-btn" id="login-submit-master"
+        style="width: 100%; font-size: 16px; padding: 10px;">Entsperren</button>
+</div>
 
             <div id="auth-step-2" style="display: none; flex-direction: column; gap: 15px;">
                 <p style="font-size: 14px; color: #627d98; margin-bottom: 10px;">Was möchtest du tun?</p>
@@ -1802,19 +1802,19 @@
             </div>
 
             <div id="auth-step-3" style="display: none;">
-                <p id="auth-step-3-desc" style="font-size: 14px; color: #627d98; margin-bottom: 25px;"></p>
-                <input type="password" id="personal-pw-input" class="password-input"
-                    placeholder="Persönliches Passwort...">
-                <p id="login-error-3"
-                    style="color: #d32f2f; font-size: 13px; font-weight: bold; margin-bottom: 15px; display: none;">
-                    Passwort falsch!</p>
-                <div style="display: flex; gap: 10px;">
-                    <button type="button" class="app-btn" id="login-back-btn"
-                        style="flex: 1; padding: 10px;">Zurück</button>
-                    <button type="button" class="app-btn primary-btn" id="login-submit-personal"
-                        style="flex: 2; font-size: 16px; padding: 10px;">Programm starten</button>
-                </div>
-            </div>
+    <p id="auth-step-3-desc" style="font-size: 14px; color: #627d98; margin-bottom: 25px;"></p>
+    <input type="text" id="personal-pw-input" class="password-input"
+        placeholder="Persönliches Passwort..." style="-webkit-text-security: disc;">
+    <p id="login-error-3"
+        style="color: #d32f2f; font-size: 13px; font-weight: bold; margin-bottom: 15px; display: none;">
+        Passwort falsch!</p>
+    <div style="display: flex; gap: 10px;">
+        <button type="button" class="app-btn" id="login-back-btn"
+            style="flex: 1; padding: 10px;">Zurück</button>
+        <button type="button" class="app-btn primary-btn" id="login-submit-personal"
+            style="flex: 2; font-size: 16px; padding: 10px;">Programm starten</button>
+    </div>
+</div>
         </div>
     </div>
 
