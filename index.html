@@ -3184,9 +3184,23 @@ async function hashPassword(input) {
                     lnwsContainer.appendChild(lnwWrapper);
                     select.value = lnwId;
                     activateLNW(classWrapper, lnwId);
+                    
+                    const prevLNWs = Array.from(lnwsContainer.querySelectorAll('.lnw-wrapper'));
+const prevLNW = prevLNWs.length > 0 ? prevLNWs[prevLNWs.length - 1] : null;
+const studentsToCopy = prevLNW
+    ? Array.from(prevLNW.querySelectorAll('.workspace .page'))
+          .map(p => ({ name: p.querySelector('.student-name-input')?.value.trim() || '', klasse: p.querySelector('input[name="klasse-input"]')?.value.trim() || '' }))
+          .filter(s => s.name !== '')
+    : [];
 
                     window.isBatchCreating = true;
-                    addStudent(lnwWrapper, '');
+                
+                    if (studentsToCopy.length > 0) {
+    studentsToCopy.forEach(s => addStudent(lnwWrapper, s.name, s.klasse));
+} else {
+    addStudent(lnwWrapper, '');
+}
+
                     window.isBatchCreating = false;
 
                     saveAppLocal();
