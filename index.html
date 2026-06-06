@@ -2737,7 +2737,7 @@ document.getElementById('personal-pw-input').addEventListener('input', () => {
 
             document.getElementById('btn-new-empty').addEventListener('click', () => {
                 currentAuthMode = 'new'; step2.style.display = 'none'; step3.style.display = 'block';
-                document.getElementById('login-title').textContent = "Persönliches Passwort"; document.getElementById('auth-step-3-desc').innerHTML = `Lege ein Passwort fest. Mit diesem Passwort werden deine zukünftigen .eks-Backups unknackbar gesichert:<ul style="margin-top:12px; margin-bottom:12px; padding-left:0; margin-left:0;"><li style="margin-bottom:10px; margin-left:0;">Mindestens 8 Zeichen lang</li><li style="margin-bottom:10px; margin-left:0;">Mindestens ein Großbuchstabe (A–Z)</li><li style="margin-bottom:10px; margin-left:0;">Mindestens eine Zahl (0–9)</li><li style="margin-bottom:10px; margin-left:0;">Mindestens ein Sonderzeichen (!, @, #, $, %, ^, &, *, etc.)</li></ul>`; document.getElementById('personal-pw-input').focus();
+                document.getElementById('login-title').textContent = "Persönliches Passwort"; document.getElementById('auth-step-3-desc').innerHTML = `Lege ein Passwort fest. Mit diesem Passwort werden deine zukünftigen .eks-Backups unknackbar gesichert:<div style="margin-top:12px;"><div style="margin-bottom:8px;">* Mindestens 8 Zeichen lang</div><div style="margin-bottom:8px;">* Mindestens ein Großbuchstabe (A–Z)</div><div style="margin-bottom:8px;">* Mindestens eine Zahl (0–9)</div><div style="margin-bottom:8px;">* Mindestens ein Sonderzeichen (!, @, #, $, %, ^, &, *, etc.)</div></div>`; document.getElementById('personal-pw-input').focus();
                 document.getElementById('pw-strength-wrap').style.display = 'block';
             });
 
