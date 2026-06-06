@@ -1803,11 +1803,17 @@
 
             <div id="auth-step-3" style="display: none;">
     <p id="auth-step-3-desc" style="font-size: 14px; color: #627d98; margin-bottom: 25px;"></p>
-    <input type="text" id="personal-pw-input" class="password-input"
-        placeholder="Persönliches Passwort..." style="-webkit-text-security: disc;">
-    <p id="login-error-3"
-        style="color: #d32f2f; font-size: 13px; font-weight: bold; margin-bottom: 15px; display: none;">
-        Passwort falsch!</p>
+   <input type="text" id="personal-pw-input" class="password-input"
+    placeholder="Persönliches Passwort..." style="-webkit-text-security: disc;">
+<div id="pw-strength-wrap" style="display:none; margin: 8px 0 12px 0;">
+    <div style="background:#e0e0e0; border-radius:4px; height:6px; overflow:hidden;">
+        <div id="pw-strength-bar" style="height:100%; width:0%; border-radius:4px; transition:width 0.3s, background 0.3s;"></div>
+    </div>
+    <span id="pw-strength-text" style="font-size:12px; margin-top:4px; display:block;"></span>
+</div>
+<p id="login-error-3"
+    style="color: #d32f2f; font-size: 13px; font-weight: bold; margin-bottom: 15px; display: none;">
+    Passwort falsch!</p>
     <div style="display: flex; gap: 10px;">
         <button type="button" class="app-btn" id="login-back-btn"
             style="flex: 1; padding: 10px;">Zurück</button>
@@ -2705,17 +2711,40 @@ async function hashPassword(input) {
 
             document.getElementById('login-input').addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.stopPropagation(); document.getElementById('login-submit-master').click(); } });
             document.getElementById('personal-pw-input').addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.stopPropagation(); document.getElementById('login-submit-personal').click(); } });
+document.getElementById('personal-pw-input').addEventListener('input', () => {
+    const v = document.getElementById('personal-pw-input').value;
+    let score = 0;
+    if (v.length >= 8) score++;
+    if (/[A-Z]/.test(v)) score++;
+    if (/[0-9]/.test(v)) score++;
+    if (/[^A-Za-z0-9]/.test(v)) score++;
+    const bar = document.getElementById('pw-strength-bar');
+    const txt = document.getElementById('pw-strength-text');
+    const levels = [
+        { w: '25%', bg: '#e53935', label: 'Sehr schwach' },
+        { w: '50%', bg: '#fb8c00', label: 'Schwach' },
+        { w: '75%', bg: '#fdd835', label: 'Mittel' },
+        { w: '100%', bg: '#43a047', label: 'Stark' },
+    ];
+    const l = levels[Math.max(0, score - 1)] || levels[0];
+    bar.style.width = v.length === 0 ? '0%' : l.w;
+    bar.style.background = l.bg;
+    txt.textContent = v.length === 0 ? '' : l.label;
+    txt.style.color = l.bg;
+});
 
             let currentAuthMode = '';
 
             document.getElementById('btn-new-empty').addEventListener('click', () => {
                 currentAuthMode = 'new'; step2.style.display = 'none'; step3.style.display = 'block';
                 document.getElementById('login-title').textContent = "Persönliches Passwort"; document.getElementById('auth-step-3-desc').textContent = "Lege ein Passwort fest. Mit diesem Passwort werden deine zukünftigen .eks-Backups unknackbar gesichert:"; document.getElementById('personal-pw-input').focus();
+                document.getElementById('pw-strength-wrap').style.display = 'block';
             });
 
             document.getElementById('btn-load-local').addEventListener('click', () => {
                 currentAuthMode = 'load-local'; step2.style.display = 'none'; step3.style.display = 'block';
                 document.getElementById('login-title').textContent = "Letzte Sitzung laden"; document.getElementById('auth-step-3-desc').textContent = "Bitte gib dein persönliches Passwort ein, um die lokalen Daten zu entschlüsseln:"; document.getElementById('personal-pw-input').focus();
+            document.getElementById('pw-strength-wrap').style.display = 'none';
             });
 
             document.getElementById('backup-upload-input').addEventListener('change', (e) => {
@@ -2725,6 +2754,7 @@ async function hashPassword(input) {
                     pendingLoadedData = evt.target.result; currentAuthMode = 'load-file'; step2.style.display = 'none'; step3.style.display = 'block';
                     document.getElementById('login-title').textContent = "Backup laden"; document.getElementById('auth-step-3-desc').textContent = `Datei "${file.name}" geladen!\n\nBitte gib das persönliche Passwort ein, mit dem diese Datei verschlüsselt wurde:`; document.getElementById('personal-pw-input').focus();
                 }; reader.readAsText(file);
+                document.getElementById('pw-strength-wrap').style.display = 'none';
             });
 
             document.getElementById('login-back-btn').addEventListener('click', () => {
